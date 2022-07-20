@@ -6,22 +6,10 @@ import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import PostHeader from './post-header';
 import classes from './post-content.module.css';
 
-function PostContent(props) {
-  const { post } = props;
-
+function PostContent({ post }) {
   const imagePath = `/images/posts/${post.image}`;
 
   const customRenderers = {
-    // img(image) {
-    //   return (
-    //     <Image
-    //       src={`/images/posts/${post.slug}/${image.src}`}
-    //       alt={image.alt}
-    //       width={600}
-    //       height={300}
-    //     />
-    //   );
-    // },
     p(paragraph) {
       const { node } = paragraph;
 
