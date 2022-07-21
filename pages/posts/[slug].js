@@ -5,10 +5,8 @@ function PostPage({ post }) {
   return <PostContent post={post} />;
 }
 
-export async function getStaticProps(context) {
-  const {
-    params: { slug },
-  } = context;
+export async function getStaticProps({ params }) {
+  const { slug } = params;
 
   return {
     props: {
@@ -20,7 +18,6 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   const posts = getAllPosts();
-  // for few posts, we can use the following:
   return {
     paths: posts.map(post => ({
       params: {
@@ -29,13 +26,6 @@ export async function getStaticPaths() {
     })),
     fallback: false,
   };
-
-  // for many posts, we can use the following:
-  //
-  // return {
-  //   paths: [],
-  //   fallback: 'blocking',
-  // };
 }
 
 export default PostPage;
