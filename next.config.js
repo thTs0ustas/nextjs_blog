@@ -8,7 +8,7 @@ const nextConfig = phase => {
       env: {
         mongodb_username: 'thTs0ustas',
         mongodb_password: 'LHcXjFW2wYsbgVx',
-        mongodb_cluster: 'cluster0.',
+        mongodb_cluster: 'cluster0',
         mongodb_db: 'test',
       },
     };
