@@ -56,10 +56,7 @@ function ContactForm() {
         name: state.enteredName,
         message: state.enteredMessage,
       })
-        .then(({ data }) => {
-          console.log('===>');
-          console.log('===>', data);
-        })
+        
         .catch(error => {
           setState(prevState => ({
             ...prevState,

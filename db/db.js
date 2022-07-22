@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 async function main() {
   try {
     await mongoose.connect(
-      'mongodb+srv://thTs0ustas:LHcXjFW2wYsbgVx@cluster0.zborg.mongodb.net/test'
+      `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_cluster}.zborg.mongodb.net/${process.env.mongodb_db}`
     );
   } catch (e) {
     console.log(e);
