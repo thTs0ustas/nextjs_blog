@@ -29,7 +29,11 @@ async function handleContact(req, res) {
       message,
     };
     try {
-      await main();
+      await main().catch(() => {
+        return res.status(500).json({
+          message: 'Internal server error',
+        });
+      });
       await Contacts.create(newMessage);
     } catch (e) {
       return res.status(500).json({ message: 'Server error' });
