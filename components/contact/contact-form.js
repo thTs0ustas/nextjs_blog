@@ -1,22 +1,14 @@
-import { useState, useEffect } from 'react';
-
-import classes from './contact-form.module.css';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Notification from '../ui/notification';
+import classes from './contact-form.module.css';
 
 async function sendContactData(contactDetails) {
-  const response = await fetch('/api/contact', {
-    method: 'POST',
-    body: JSON.stringify(contactDetails),
+  return await axios.post('/api/contact', JSON.stringify(contactDetails), {
     headers: {
       'Content-Type': 'application/json',
     },
   });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong!');
-  }
 }
 
 function ContactForm() {
@@ -54,26 +46,36 @@ function ContactForm() {
   async function sendMessageHandler(event) {
     event.preventDefault();
 
-    // optional: add client-side validation
-
     setState(prevState => ({
       ...prevState,
       requestStatus: 'pending',
     }));
-
     try {
-      await sendContactData({
+      sendContactData({
         email: state.enteredEmail,
         name: state.enteredName,
         message: state.enteredMessage,
-      });
-      setState(prevState => ({
-        ...prevState,
-        requestStatus: 'success',
-        enteredMessage: '',
-        enteredEmail: '',
-        enteredName: '',
-      }));
+      })
+        .then(({ data }) => {
+          console.log('===>');
+          console.log('===>', data);
+        })
+        .catch(error => {
+          setState(prevState => ({
+            ...prevState,
+            requestStatus: 'error',
+            requestError: error.message,
+          }));
+        })
+        .finally(() => {
+          setState(prevState => ({
+            ...prevState,
+            requestStatus: 'success',
+            enteredMessage: '',
+            enteredEmail: '',
+            enteredName: '',
+          }));
+        });
     } catch (error) {
       setState(prevState => ({
         ...prevState,

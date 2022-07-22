@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Hero from '../components/homePageComponents/hero';
 import FeaturedPosts from '../components/homePageComponents/featured-posts';
+import Hero from '../components/homePageComponents/hero';
 import { getFeaturedPosts } from '../lib/posts-util';
 
 export default function Home({ posts = [] }) {
